@@ -1,0 +1,59 @@
+
+services:
+  # Django web application
+  web:
+    container_name: dbvatpro_app
+    build:
+      context: ./project
+      dockerfile: ./Dockerfile
+    volumes:
+      - staticfiles:/neksio/static/
+    env_file:
+      - ./.env
+    ports:
+       - '8030:8030'
+    depends_on:
+      - db_app
+      # - redis
+    networks:
+      - shared_network
+
+  # redis:
+  #   image: redis:alpine
+  #   container_name: redis_server_dbvat
+  #   ports:
+  #     - "6380:6379"
+  #   networks:
+  #     - shared_network
+
+  db_app:
+    image: postgres
+    container_name: postgres_dbvat
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    env_file:
+      - ./.env
+    networks:
+      - shared_network
+  nginx:
+    container_name: nginx
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - web
+    volumes:
+      - ./nginx:/etc/nginx/conf.d
+      - staticfiles:/static/
+    networks:
+      - shared_network
+volumes:
+  postgres_data:
+  staticfiles:
+
+
+networks:
+  shared_network:

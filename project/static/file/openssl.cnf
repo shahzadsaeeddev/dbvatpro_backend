@@ -1,0 +1,41 @@
+oid_section = my_oids
+[my_oids]
+tsa_policy1 =1.3.6.1.4.1.311.20.2
+
+[ req ]
+default_bits	=     2048
+emailAddress 	=     bilaljmal@gmail.com
+req_extensions    =   v3_req
+x509_extensions	=     v3_ca	# The extensions to add to the self signed cert
+prompt =     no
+default_md        =     sha256
+req_extensions    =     req_ext
+distinguished_name = dn
+
+
+
+[ dn ]
+C=SA
+O=Maximum Speed Tech Supply
+OU=Sales1
+CN=TST-886431145-39999999990
+
+[ req_ext ]
+
+1.3.6.1.4.1.311.20.2 =ASN1:PRINTABLESTRING:TSTZATCA-Code-Signing
+subjectAltName = dirName:alt_names
+
+[ v3_req ]
+
+# Extensions to add to a certificate request
+
+basicConstraints = CA:FALSE
+keyUsage = digitalSignature, nonRepudiation, keyEncipherment
+
+
+[ alt_names ]
+SN=1-diamondbox.pro|2- version 2.0 |3-c115943a-f335-4ad9-894e-1ba5b1147f00
+UID=399999999900003
+title=1000
+registeredAddress=RRRD2929
+businessCategory=Retail
